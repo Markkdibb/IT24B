@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> To Do List </title>
+</head>
+<body>
+    <h1> To Do List </h1>
+    <input type = "text" 
+    id = "taskInput"
+    placeholder = "Add a new task...">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList">Tasks goes here...</ul>
+
+    <script>
+        function addTask() {
+            const taskText = getTaskText();
+
+            if (taskText) {
+                addTaskItem(taskText);
+            } else {
+                console.log("No task entered, nothing to add.");
+            }
+
+            
+        }
+        function getTaskText() {
+            const input = document.getElementById("taskInput");
+            const value = input.value.trim();
+            console.log("getTaskText() called, value: " + value);
+            return value;
+            
+        }
+        function addTaskItem(taskText) {
+            const li = document.createElement("li");
+            li.textContent = taskText;
+
+            document.getElementById("taskList").appendChild(li);
+            console.log("addTaskItem() called, => " + taskText, Date());
+            
+
+
+            
+        }
+        </script>
+
+    
+</body>
+</html>
