@@ -35,7 +35,7 @@
     var marker = L.marker([8.3593, 124.8691]).addTo(map);
     marker.bindPopup("<b>ICS Laboratory 1</b><br>This is the ICS Laboratory 1, owright").openPopup();
 
-    function initMap(mapId, mapData){
+    function initMap(){
         const map = L.map(`map`).setView([8.360011920985976, 124.86831930047605], 17);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -43,8 +43,21 @@
         }).addTo(map);
             console.log("Map Loaded" + Date());
 
-            
-
-    }
+            fetch(mapDataUrl)
+            .then(response => response.json())
+            .then(data => {
+                data.foreach(pin=>{
+                    const marker = L.marker([pin.lat, pin.lng]).addTo(map);
+                    marker.bindPopup(`${pin.name}<br>${pin.description}`);
+                    console.log( `${pin.name} Loaded` + Date());
+                });
+               })
+               
+            .catch(err=>console.error("Error loading JSON: ", err));
+            }
+            document.addEventListener("DOMContentLoaded",() =>{
+                initMap(`map`);
+            });
+                
 </script>
 </html>
