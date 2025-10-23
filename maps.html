@@ -29,64 +29,35 @@
     <h1>Map</h1>
     <div id="map"></div>
 
-</body>
-<script>
-
-    function initMap(mapDataUrl){
-        const map = L.map('map').setView([8.360302114528377, 124.8684101925283], 17);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        console.log("Map loaded" + Date());
-
-        fetch(mapDataUrl)
-            .then(response => response.json())
-            .then(data => {
-                data.forEach(pin=>{
-                    const marker = L.marker([pin.lat, pin.lng]).addTo(map);
-                    marker.bindPopup(`${pin.name}<br>${pin.description}`);
-                    console.log(`${pin.name} Loaded ` + Date());
-                });
-            })
-            .catch(err=>console.error('Error loading JSON:',err));
-
-    }
-
-    document.addEventListener('DOMContentLoaded',()=>{
-        initMap('maps.json');
-    })
-
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    initMap('maps.json');
-});
+        function initMap(mapDataUrl) {
+            const map = L.map('map').setView([8.360302114528377, 124.8684101925283], 17);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
 
-function initMap(mapDataUrl) {
-    const map = L.map('map').setView([8.360302114528377, 124.8684101925283], 17);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
+            fetch(mapDataUrl)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(pin => {
+                        const marker = L.marker([pin.lat, pin.lng]).addTo(map);
+                        const imgHtml = pin.img
+                            ? `<a href="${pin.img}" target="_blank" rel="noopener noreferrer">
+                                   <img class="popup-image" src="${pin.img}" alt="${(pin.name || '')}" />
+                               </a>`
+                            : '';
+                        const title = pin.name || '';
+                        const desc = pin.description || '';
+                        marker.bindPopup(`${imgHtml}<br><b>${title}</b><p>${desc}</p>`);
+                    });
+                })
+                .catch(err => console.error('Error loading JSON:', err));
+        }
 
-    fetch(mapDataUrl)
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(pin => {
-                const marker = L.marker([pin.lat, pin.lng]).addTo(map);
-                const imgHtml = pin.img
-                    ? `<a href="${pin.img}" target="_blank" rel="noopener noreferrer">
-                           <img class="popup-image" src="${pin.img}" alt="${(pin.name||'')}" />
-                       </a>`
-                    : '';
-                const title = pin.name || '';
-                const desc = pin.description || '';
-                marker.bindPopup(`${imgHtml}<br><b>${title}</b><p>${desc}</p>`);
-            });
-        })
-        .catch(err => console.error('Error loading JSON:', err));
-}
-</script>
-
-</script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initMap('maps.json'); 
+        });
+    </script>
+</body>
 </html>
