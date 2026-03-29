@@ -1,0 +1,18 @@
+[
+    {
+        "name":"ICS Laboratory 1",
+        "title":"ICS Lab 1",
+        "description":"ICS Laboratory 1</b><br>This is the ICS Laboratory 1, owright",
+        "img":"https://cdn-img.secondsout.com/uploads/content/1749540502545262782/Naseem-Hamed.jpg",
+        "lat":8.3593,
+        "lng":124.8691
+    },
+    {
+        "name":"DMST office",
+        "title":"Office sa mga Gwapo",
+        "description":"Hell Office",
+        "img":"https://www.shutterstock.com/image-photo/group-handsome-men-sitting-together-on-80778202?dd_referrer=https%3A%2F%2Fwww.google.com%2F",
+        "lat":8.359892344724464,
+        "lng":124.8692226590455
+    }
+]
